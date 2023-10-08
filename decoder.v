@@ -3,13 +3,12 @@ module decoder(
 	input [1:0] Op, 
 	input [5:0] Funct, 
 	input [3:0] Rd,
-	output [1:0] FlagW, ImmSrc,
+	output [1:0] FlagW,
 	output PCS, RegW, MemW,
 	output MemtoReg, ALUSrc,
 	output [1:0] ImmSrc, RegSrc, ALUControl
 );
-
-	wire RegW, MemW, ALUOp, Branch;
+	wire ALUOp, Branch;
 	// Main decoder logic
 	if (Op == 2'b00 && Funct[5] == 0) begin
 		assign Branch = 0;
