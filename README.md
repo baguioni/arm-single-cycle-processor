@@ -7,12 +7,12 @@ Design, simulate and test a simplified ARM single-cycle processor using verilog.
 
 #### To do
 - [ ] Design datapath
-	- [ ] program counter
-	- [ ] register file
-	- [ ] ALU
-	- [ ] extend 
+	- [x] program counter
+	- [x] register file
+	- [x] ALU
+	- [x] extend 
 - [ ] Design memory
-	- [ ] instruction memory
+	- [x] instruction memory
 	- [x] data memory
 - [ ] Design control unit
 	- [ ] decoder
