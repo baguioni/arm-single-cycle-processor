@@ -11,7 +11,7 @@ module control_unit(
 	wire PCS, RegW, MemW;
 	wire [1:0] FlagW;
 
-	conditional_logic conditional_logic(
+	conditional_logic conditional_logic_unit(
 		.CLK(CLK),
 		.Cond(Cond),
 		.ALUFlags(ALUFlags),
@@ -21,10 +21,10 @@ module control_unit(
 		.MemW(MemWrite),
 		.PCSrc(PCSrc),
 		.RegWrite(RegWrite),
-		.MemWrite(MemWrite)
+		.MemWrite(MemWrite),
 	);
   
-	decoder decoder(
+	decoder decoder_unit(
 		.Op(Op),
 		.Funct(Funct),
 		.Rd(Rd),
@@ -36,7 +36,7 @@ module control_unit(
 		.ALUSrc(ALUSrc),
 		.ImmSrc(ImmSrc),
 		.RegSrc(RegSrc),
-		.ALUControl(ALUControl),
+		.ALUControl(ALUControl)
 	);
 
 endmodule
