@@ -21,6 +21,7 @@ Design, simulate and test a simplified ARM single-cycle processor using verilog.
 	- [x] conditional logic
 - [ ] Test bench for selected instructions
 - [ ] Test bench for each component
+- [ ] Add instructions to `instruction.mem` should be 32 bits
 
 #### How to run testbench
 ```
