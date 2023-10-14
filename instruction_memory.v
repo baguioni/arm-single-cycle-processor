@@ -5,19 +5,17 @@ module instruction_memory(
 	output wire [31:0] ReadData 
 );
 	// 32-bit wide word
-	// 8 words deep
-	reg [31:0] memory [7:0];
+	reg [31:0] memory [63:0];
 
 	// initialize memory values to 0
-	integer i;
 	initial begin
 		$display("Initializing memory");
 
-		$readmemb("instruction.mem", memory);
+		$readmemh("instruction.dat", memory);
 
 	end
 
 	// reads are combinational operations
-	assign ReadData = memory[Address];
+	assign ReadData = memory[Address[31:2]];
 	
 endmodule

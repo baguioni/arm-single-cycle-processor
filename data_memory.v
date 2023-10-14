@@ -9,13 +9,13 @@ module data_memory(
 );
 	// 32-bit wide word
 	// 8 words deep
-	reg [31:0] memory [7:0];
+	reg [31:0] memory [63:0];
 
 	// initialize memory values to 0
 	integer i;
 	initial begin
 		$display("Initializing memory");
-		for(i=0; i< 7; i=i+1) begin
+		for(i=0; i< 63; i=i+1) begin
 			memory[i] = 32'b0;
 		end
 	end
@@ -23,11 +23,11 @@ module data_memory(
 	// writes are synchronous operations
 	always @(posedge CLK) begin
 		if (MemWrite == 1'b1) begin
-			memory[Address] <= WriteData;
+			memory[Address[31:2]] <= WriteData;
 		end
 	end
 
 	// reads are combinational operations
-	assign ReadData = memory[Address];
+	assign ReadData = memory[Address[31:2]];
 	
 endmodule

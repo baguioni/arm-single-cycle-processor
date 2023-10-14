@@ -5,10 +5,7 @@ module conditional_logic(
 	input PCS, RegW, MemW,
 	output PCSrc, RegWrite, MemWrite
 );
-	assign N = ALUFlags[3];
-	assign Z = ALUFlags[2];
-	assign V = ALUFlags[1];
-	assign C = ALUFlags[0];
+	assign {N, Z, V, C} = ALUFlags;
 
 	reg  [1:0] Flags_NZ, Flags_VC;
 	wire CondEx;

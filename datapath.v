@@ -26,7 +26,6 @@ module datapath(
 	assign PCPlus4 = PC_out + 4;
 	assign PCPlus8 = PC_out + 8;
 
-
 	instruction_memory instruction_memory_unit(
 		.Address(PC_out),
 		.ReadData(Instr)
@@ -81,7 +80,8 @@ module datapath(
 		.ALUControl(ALUControl),
 		.SrcA(RD1),
 		.SrcB(SrcB),
-		.ALUResult(ALUResult)
+		.ALUResult(ALUResult),
+		.ALUFlags(ALUFlags)
 	);
 
 	datamemory data_memory_unit(

@@ -25,7 +25,8 @@ module register_file(
 		end
 	end
 
-	assign RD1 = registers[A1];
-	assign RD2 = registers[A2];
+	//Assign R15 to register 15
+	assign RD1 = (A1 == 4'b1111) ? R15 : registers[A1];
+	assign RD2 = (A2 == 4'b1111) ? R15 : registers[A2];
 
 endmodule
