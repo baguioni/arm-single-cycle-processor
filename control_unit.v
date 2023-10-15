@@ -1,3 +1,6 @@
+`include "conditional_logic.v"
+`include "decoder.v"
+
 module control_unit(
 	input CLK,
 	input [3:0] Cond, ALUFlags,
@@ -5,7 +8,7 @@ module control_unit(
 	input [5:0] Funct, 
 	input [3:0] Rd,
 	output PCSrc, RegWrite, MemWrite, MemtoReg, ALUSrc, 
-	output [1:0] ImmSrc, RegSrc, ALUControl,
+	output [1:0] ImmSrc, RegSrc, ALUControl
 );
 
 	wire PCS, RegW, MemW;
@@ -21,7 +24,7 @@ module control_unit(
 		.MemW(MemWrite),
 		.PCSrc(PCSrc),
 		.RegWrite(RegWrite),
-		.MemWrite(MemWrite),
+		.MemWrite(MemWrite)
 	);
   
 	decoder decoder_unit(

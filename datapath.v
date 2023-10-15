@@ -1,12 +1,19 @@
+`include "program_counter.v"
+`include "instruction_memory.v"
+`include "register_file.v"
+`include "extend.v"
+`include "alu.v"
+`include "data_memory.v"
+`include "mux2-1.v"
+
 module datapath(
 	input CLK, PCSrc, MemtoReg, MemWrite, ALUSrc, RegWrite,
 	input [1:0] RegSrc, ImmSrc, ALUControl, 
 	output [3:0] ALUFlags,
 	output [31:0] Result, Instr
 );
-	wire [31:0] PC_in, PC_out, PCPlus4, PCPlus8, ExtImm, SrcA, SrcB, ALUResult, ReadData;
-	wire [3:0] RA1, RA2, RD1, RD2;
-	
+	wire [31:0] PC_in, PC_out, PCPlus4, PCPlus8, ExtImm, SrcA, SrcB, ALUResult, ReadData, RD1, RD2;
+	wire [3:0] RA1, RA2;
 
 	mux2x1 #(
 		.WIDTH(32)
@@ -34,8 +41,8 @@ module datapath(
 	mux2x1 #(
 		.WIDTH(4)
 	) mux2x1_RA1 (
-		.a(Instr[19-16]),
-		.b(2'd15),
+		.a(Instr[19:16]),
+		.b(4'b1111),
 		.sel(RegSrc[0]),
 		.out(RA1)
 	);	
@@ -49,7 +56,7 @@ module datapath(
 		.out(RA2)
 	);	
 
-	register_file_unit register_file_unit(
+	register_file register_file_unit(
 		.CLK(CLK),
 		.WE3(MemWrite),
 		.A1(RA1),
@@ -64,7 +71,7 @@ module datapath(
 	extend extend_unit(
 		.ImmSrc(ImmSrc),
 		.Extend_in(Instr[23:0]),
-		.Extend_out(ExtImm)
+		.ExtImm(ExtImm)
 	);
 
 	mux2x1 #(
@@ -84,7 +91,7 @@ module datapath(
 		.ALUFlags(ALUFlags)
 	);
 
-	datamemory data_memory_unit(
+	data_memory data_memory_unit(
 		.CLK(CLK),
 		.Address(ALUResult),
 		.WriteData(RD2),

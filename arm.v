@@ -1,17 +1,16 @@
+`include "datapath.v"
+`include "control_unit.v"
+
 module arm(
 	input CLK,
-	output [31:0] Result
+	output [31:0] Result, Instr
 );
-
 	wire [3:0] ALUFlags;
-	wire [31:0] Instr;
-
 	// Input to control unit
 	wire [3:0] Cond = Instr[31:28];
 	wire [1:0] Op = Instr[27:26];
 	wire [5:0] Funct = Instr[25:20];
 	wire [3:0] Rd = Instr[15:12];
-
 
 	wire PCSrc, RegWrite, MemWrite, MemtoReg, ALUSrc; 
 	wire [1:0] ImmSrc, RegSrc, ALUControl;

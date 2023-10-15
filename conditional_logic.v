@@ -8,7 +8,7 @@ module conditional_logic(
 	assign {N, Z, V, C} = ALUFlags;
 
 	reg  [1:0] Flags_NZ, Flags_VC;
-	wire CondEx;
+	reg CondEx;
 
 	always @(posedge CLK) begin
 		if (FlagW[1] && CondEx) begin
@@ -21,23 +21,25 @@ module conditional_logic(
 	end
 
 	// Condition Check
-	case(Cond) 
-		4'b0000: CondEx = Z;
-		4'b0001: CondEx = ~Z;
-		4'b0010: CondEx = C;
-		4'b0011: CondEx = ~C;
-		4'b0100: CondEx = N;
-		4'b0101: CondEx = ~N;
-		4'b0110: CondEx = V;
-		4'b0111: CondEx = ~V;
-		4'b1000: CondEx = C & ~Z;
-		4'b1001: CondEx = ~C | Z;
-		4'b1010: CondEx = N == V; // XNOR checks for equivalence
-		4'b1011: CondEx = N != V; // XOR checks for inequivalence
-		4'b1100: CondEx = ~Z & (N == V);
-		4'b1101: CondEx = Z | (N != V);
-		4'b1110: CondEx = 1'b1; // Always
-	endcase
+	always @(*) begin
+		case(Cond) 
+			4'b0000: CondEx = Z;
+			4'b0001: CondEx = ~Z;
+			4'b0010: CondEx = C;
+			4'b0011: CondEx = ~C;
+			4'b0100: CondEx = N;
+			4'b0101: CondEx = ~N;
+			4'b0110: CondEx = V;
+			4'b0111: CondEx = ~V;
+			4'b1000: CondEx = C & ~Z;
+			4'b1001: CondEx = ~C | Z;
+			4'b1010: CondEx = N == V; // XNOR checks for equivalence
+			4'b1011: CondEx = N != V; // XOR checks for inequivalence
+			4'b1100: CondEx = ~Z & (N == V);
+			4'b1101: CondEx = Z | (N != V);
+			4'b1110: CondEx = 1'b1; // Always
+		endcase
+	end
 
 	assign PCSrc = CondEx & PCS;
 	assign RegWrite = CondEx & RegW;
