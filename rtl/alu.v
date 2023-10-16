@@ -3,9 +3,8 @@ module alu(
 	input [31:0] SrcA,
 	input [31:0] SrcB,
 	output reg [31:0] ALUResult,
-	output reg [3:0] ALUFlags// N, Z, V, C
+	output reg [3:0] ALUFlags // N, Z, V, C
 );
-
 	always @(*) begin 
 		case(ALUControl)
 			2'b00: ALUResult = SrcA + SrcB;
@@ -44,4 +43,5 @@ module alu(
 			end
 		endcase
 	end
+	
 endmodule

@@ -3,7 +3,6 @@ module extend(
 	input [23:0] Extend_in,
 	output reg [31:0] ExtImm
 );
-
 	always @(*) begin
 		case(ImmSrc)
 			2'b00: ExtImm = {24'b0, Extend_in[7:0]}; // 8-bit unsigned immediate
@@ -12,4 +11,5 @@ module extend(
 			default: ExtImm = 32'bx; // undefined
 		endcase
 	end
+	
 endmodule

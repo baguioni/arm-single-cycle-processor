@@ -1,6 +1,3 @@
-`include "conditional_logic.v"
-`include "decoder.v"
-
 module control_unit(
 	input CLK,
 	input [3:0] Cond, ALUFlags,

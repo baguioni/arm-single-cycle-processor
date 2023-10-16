@@ -1,19 +1,10 @@
-`include "program_counter.v"
-`include "instruction_memory.v"
-`include "register_file.v"
-`include "extend.v"
-`include "alu.v"
-`include "data_memory.v"
-`include "mux2-1.v"
-`include "adder.v"
-
 module datapath(
 	input CLK, RST, PCSrc, MemtoReg, MemWrite, ALUSrc, RegWrite,
 	input [1:0] RegSrc, ImmSrc, ALUControl, 
 	output [3:0] ALUFlags,
-	output [31:0] Result, Instr, PC_out, ALUResult
+	output [31:0] Result, Instr, ALUResult
 );
-	wire [31:0] PC_in, PCPlus4, PCPlus8, ExtImm, SrcA, SrcB, ReadData, RD1, RD2;
+	wire [31:0] PC_in, PC_out, PCPlus4, PCPlus8, ExtImm, SrcA, SrcB, ReadData, RD1, RD2;
 	wire [3:0] RA1, RA2;
 
 	mux2x1 #(

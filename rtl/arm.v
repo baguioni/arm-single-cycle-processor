@@ -1,9 +1,6 @@
-`include "datapath.v"
-`include "control_unit.v"
-
 module arm(
 	input CLK, RST,
-	output [31:0] Result, Instr, PC_out, ALUResult, 
+	output [31:0] Result, Instr, ALUResult, 
 	output [1:0] ALUControl
 );
 	wire [3:0] ALUFlags;
@@ -30,7 +27,6 @@ module arm(
 		.ALUFlags(ALUFlags),
 		.Result(Result),
 		.Instr(Instr),
-		.PC_out(PC_out),
 		.ALUResult(ALUResult)
 	);
 

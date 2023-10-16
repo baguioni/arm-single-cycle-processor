@@ -63,8 +63,7 @@ module decoder(
 		if (ALUOp == 0) begin
 			assign ALUControl = 2'b00;
 			assign FlagW = 2'b00;
-		end
-		else begin 
+		end else begin 
 			case(Funct[4:1])
 				4'b0100: if (Funct[0] == 0) begin 
 						assign ALUControl = 2'b00;

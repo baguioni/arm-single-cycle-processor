@@ -8,7 +8,6 @@ module data_memory(
 	output wire [31:0] ReadData 
 );
 	// 32-bit wide word
-	// 8 words deep
 	reg [31:0] memory [63:0];
 
 	// initialize memory values to 0

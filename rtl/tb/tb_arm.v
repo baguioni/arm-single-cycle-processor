@@ -1,7 +1,7 @@
 module tb_arm();
 	reg CLK, RST;
 	reg [3:0] counter;
-	wire [31:0] Result, Instr, PC_out, ALUResult ;
+	wire [31:0] Result, Instr, ALUResult;
 	wire [1:0] ALUControl;
 
 	// Instantiate the Unit Under Test (UUT)
@@ -10,7 +10,6 @@ module tb_arm();
 		.RST(RST),
 		.Result(Result),
 		.Instr(Instr),
-		.PC_out(PC_out),
 		.ALUResult(ALUResult),
 		.ALUControl(ALUControl)
 	);
@@ -45,3 +44,4 @@ module tb_arm();
 		end
 	end
 endmodule
+
