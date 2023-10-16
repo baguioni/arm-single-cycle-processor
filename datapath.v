@@ -5,33 +5,44 @@
 `include "alu.v"
 `include "data_memory.v"
 `include "mux2-1.v"
+`include "adder.v"
 
 module datapath(
-	input CLK, PCSrc, MemtoReg, MemWrite, ALUSrc, RegWrite,
+	input CLK, RST, PCSrc, MemtoReg, MemWrite, ALUSrc, RegWrite,
 	input [1:0] RegSrc, ImmSrc, ALUControl, 
 	output [3:0] ALUFlags,
-	output [31:0] Result, Instr
+	output [31:0] Result, Instr, PC_out, ALUResult
 );
-	wire [31:0] PC_in, PC_out, PCPlus4, PCPlus8, ExtImm, SrcA, SrcB, ALUResult, ReadData, RD1, RD2;
+	wire [31:0] PC_in, PCPlus4, PCPlus8, ExtImm, SrcA, SrcB, ReadData, RD1, RD2;
 	wire [3:0] RA1, RA2;
 
 	mux2x1 #(
 		.WIDTH(32)
 	) mux2x1_PC (
-		.a(Result),
-		.b(PCPlus4),
+		.a(PCPlus4),
+		.b(Result),
 		.sel(PCSrc),
 		.out(PC_in)
 	);	
 
 	program_counter program_counter_unit(
 		.CLK(CLK),
+		.RST(RST),
 		.PC_in(PC_in),
 		.PC_out(PC_out)
 	);
 
-	assign PCPlus4 = PC_out + 4;
-	assign PCPlus8 = PC_out + 8;
+	adder adder_PCPlus4 (
+		.a(PC_out),
+		.b(32'd4),
+		.result(PCPlus4)
+	);
+
+	adder adder_PCPlus8 (
+		.a(PCPlus4),
+		.b(32'd4),
+		.result(PCPlus8)
+	);
 
 	instruction_memory instruction_memory_unit(
 		.Address(PC_out),
@@ -58,7 +69,7 @@ module datapath(
 
 	register_file register_file_unit(
 		.CLK(CLK),
-		.WE3(MemWrite),
+		.WE3(RegWrite),
 		.A1(RA1),
 		.A2(RA2),
 		.A3(Instr[15:12]),

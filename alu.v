@@ -15,7 +15,6 @@ module alu(
 		endcase
 
 		// Set ALUFlags
-
 		// N Flag
 		if (ALUResult[31] == 1) begin
 			ALUFlags[3] = 1'b1; // N
@@ -30,24 +29,19 @@ module alu(
 			ALUFlags[2] = 1'b0;
 		end
 
-		// V Flag
-		// http://teaching.idallen.com/dat2343/10f/notes/040_overflow.txt
-		// Overflow occurs when A and B are the same sign, but the result is a different sign
-		if (SrcA > 0 && SrcB > 0 && ALUResult < 0) begin
-			ALUFlags[1] = 1'b1; // V
-		end else if (SrcA < 0 && SrcB < 0 && ALUResult > 0) begin
-			ALUFlags[1] = 1'b1; // V
-		end else begin
-			ALUFlags[1] = 1'b0;
-		end
-
-		// C Flag
-		// C Flag is set when the result of an unsigned operation is greater than the operands
-		// Note this might not work for subtraction Borrow Flag
-		if (ALUResult < SrcA || ALUResult < SrcB) begin
-			ALUFlags[0] = 1'b1; // C
-		end else begin
-			ALUFlags[0] = 1'b0;
-		end
+		case(ALUControl)
+			2'b00: begin
+				ALUFlags[1] = ((SrcA[31] & ~SrcB[31] & ALUResult[31]) | (SrcA[31] & SrcB[31] & ~ALUResult[31])); // V Flag
+				ALUFlags[0] = (SrcA >= SrcB) ? 1'b0 : 1'b1; // C Flag
+			end
+			2'b01: begin	
+				ALUFlags[1] = ((SrcA[31] & ~SrcB[31] & ALUResult[31]) | (~SrcA[31] & SrcB[31] & ALUResult[31])); // V Flag
+				ALUFlags[0] = (SrcA < SrcB) ? 1'b1 : 1'b0; // C Flag
+			end
+			default begin
+				ALUFlags[1] = 1'bx; // V Flag
+				ALUFlags[0] = 1'bx; // C Flag
+			end
+		endcase
 	end
 endmodule

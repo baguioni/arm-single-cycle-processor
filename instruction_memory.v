@@ -6,13 +6,18 @@ module instruction_memory(
 );
 	// 32-bit wide word
 	reg [31:0] memory [63:0];
+	integer i;
 
 	// initialize memory values to 0
 	initial begin
-		$display("Initializing memory");
+		$display("Initializing instruction memory");
 
 		$readmemh("instruction.dat", memory);
 
+		// display memory register using a for loop
+		// for (i = 0; i < 64; i = i + 1) begin
+		// 	$display("%d : %b", i, memory[i]);
+		// end
 	end
 
 	// reads are combinational operations

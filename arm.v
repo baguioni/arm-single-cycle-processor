@@ -2,8 +2,9 @@
 `include "control_unit.v"
 
 module arm(
-	input CLK,
-	output [31:0] Result, Instr
+	input CLK, RST,
+	output [31:0] Result, Instr, PC_out, ALUResult, 
+	output [1:0] ALUControl
 );
 	wire [3:0] ALUFlags;
 	// Input to control unit
@@ -13,10 +14,11 @@ module arm(
 	wire [3:0] Rd = Instr[15:12];
 
 	wire PCSrc, RegWrite, MemWrite, MemtoReg, ALUSrc; 
-	wire [1:0] ImmSrc, RegSrc, ALUControl;
+	wire [1:0] ImmSrc, RegSrc;
 
 	datapath datapath_uut(
 		.CLK(CLK),
+		.RST(RST),
 		.PCSrc(PCSrc),
 		.MemtoReg(MemtoReg),
 		.MemWrite(MemWrite),
@@ -27,7 +29,9 @@ module arm(
 		.ALUControl(ALUControl),
 		.ALUFlags(ALUFlags),
 		.Result(Result),
-		.Instr(Instr)
+		.Instr(Instr),
+		.PC_out(PC_out),
+		.ALUResult(ALUResult)
 	);
 
 	control_unit control_unit_uut(

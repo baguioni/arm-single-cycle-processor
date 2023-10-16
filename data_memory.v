@@ -14,7 +14,7 @@ module data_memory(
 	// initialize memory values to 0
 	integer i;
 	initial begin
-		$display("Initializing memory");
+		$display("Initializing data memory");
 		for(i=0; i< 63; i=i+1) begin
 			memory[i] = 32'b0;
 		end
@@ -23,6 +23,7 @@ module data_memory(
 	// writes are synchronous operations
 	always @(posedge CLK) begin
 		if (MemWrite == 1'b1) begin
+			$display("Address: %d Data: %d", Address[31:2], WriteData);
 			memory[Address[31:2]] <= WriteData;
 		end
 	end

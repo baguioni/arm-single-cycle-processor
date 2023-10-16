@@ -20,8 +20,8 @@ module control_unit(
 		.ALUFlags(ALUFlags),
 		.FlagW(FlagW),
 		.PCS(PCS),
-		.RegW(RegWrite),
-		.MemW(MemWrite),
+		.RegW(RegW),
+		.MemW(MemW),
 		.PCSrc(PCSrc),
 		.RegWrite(RegWrite),
 		.MemWrite(MemWrite)

@@ -13,7 +13,7 @@ module register_file(
 	// initialize memory values to 0
 	integer i;
 	initial begin
-		$display("Initializing registers");
+		$display("Initializing register file");
 		for(i=0; i< 15; i=i+1) begin
 			registers[i] = 32'b0;
 		end
