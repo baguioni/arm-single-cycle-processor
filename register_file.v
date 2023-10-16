@@ -21,6 +21,7 @@ module register_file(
 
 	always @(posedge CLK, WE3) begin
 		if (WE3 == 1'b1) begin
+			$display("Write to Register: %d Data: %d", A3, WD3);
 			registers[A3] <= WD3; // Since we are writing to register or seq element use non blocking assignment	
 		end
 	end

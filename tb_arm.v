@@ -30,15 +30,18 @@ module tb_arm();
 	integer i;
 	always @(negedge CLK) begin
 		if(Instr== 'hE0000000) begin
+			$display("-----------------------------------------------------------------------------------------");
 			$display("Simulation succeeded");
 			$finish;
 		end else begin
+			$display("-----------------------------------------------------------------------------------------");
 			   if (RST)
       				counter <= 4'b0;
    				else
       				counter <= counter + 1;
 			
-		$display("Instr = %h ALUControl = %b ALUResult = %b", Instr, ALUControl, ALUResult);
+		$display("Instruction: %h", Instr);
+		$display("ALUControl: %b ALUResult: %b", ALUControl, $signed(ALUResult));
 		end
 	end
 endmodule
