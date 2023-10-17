@@ -21,9 +21,9 @@ In addition to the processor design, this repository includes several testbenche
 │   ├── ...
 │   └── (Other Verilog modules)
 │   ├── tb         # Testbenches subfolder
-│       ├── test_arm.v     # Testbench for top-level module
-│       ├── test_data_memory.v
-│       ├── test_alu.v       
+│       ├── tb_arm.v     # Testbench for top-level module
+│       ├── tb_data_memory.v
+│       ├── tb_alu.v       
 │       ├── ...
 │       └── (Other Testbenches)
 ├── instruction.dat         # Instruction memory initialization file
